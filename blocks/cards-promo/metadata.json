@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-17T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+    "originPage": "breast cancer screening detail page",
+    "blockPosition": "middle",
+    "region": "right rail (Schedule Your Mammogram)"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "appointment-promo",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + paragraphs + CTA button",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "single appointment/contact promo cards in a rail",
+      "icon-led CTA promo cards with body copy"
+    ],
+    "notSuitableFor": [
+      "multi-item article grids",
+      "image-led media card lists"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/prevention-screening/get-screened/breast-cancer-screening"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-17T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-icon-cta",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-17T18:54:41.407Z",
+  "sourceContext": {
+    "originUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+    "originPage": "breast cancer screening detail page",
+    "blockPosition": "bottom",
+    "region": "pre-footer Help #EndCancer"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "icon-cta",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + CTA button",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "donation/action CTA groups",
+      "icon-led promo card rows"
+    ],
+    "notSuitableFor": [
+      "article grids",
+      "image-led card lists"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/prevention-screening/get-screened/breast-cancer-screening"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-17T18:54:41.407Z"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "screening-detail-page",
+      "urls": [
+        "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html"
+      ],
+      "representativeUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+      "coverageGaps": [],
+      "description": "Prevention & screening detail page: black utility top bar, red megamenu nav, breadcrumb, two-column body (long-form left content + right rail with appointment CTA, videos, featured articles), pre-footer (appointment + Help #EndCancer), and global footer.",
+      "blocks": [
+        { "name": "header", "instances": ["body > header.mda-nav", "body > nav.mda-nav"] },
+        { "name": "breadcrumb", "instances": ["div.col-content-single.breadcrumb-wrapper section.blog-breadcrumbs", "section.blog-breadcrumbs"] },
+        { "name": "social-share", "instances": ["section.social-share-modal"] },
+        { "name": "medical-reviewer", "instances": ["section.medical-reviewer-component"] },
+        { "name": "cards-promo", "instances": ["div.col-content div.promo.promo-simple.promo-icon-red"] },
+        { "name": "cards-video", "instances": ["div.col-content div.media-player.media-single-small"] },
+        { "name": "cards-teaser", "instances": ["div.col-content div.blog-summary.small:not(.fis)"] },
+        { "name": "podcast", "instances": ["section.podcast-component"] },
+        { "name": "cards-article", "instances": ["div.fis-articles"] },
+        { "name": "appointment-bar", "instances": ["div.pre-footer section.appt-section div.appointment-bar"] },
+        { "name": "cards-icon-cta", "instances": ["div.pre-footer div.promo.promo-with-background"] },
+        { "name": "footer", "instances": ["section.global-footer.bleed-full"] }
+      ],
+      "sections": [
+        {
+          "id": "rc3",
+          "name": "Breadcrumb",
+          "selector": "body > div.col-content-single.breadcrumb-wrapper",
+          "style": "light",
+          "blocks": ["breadcrumb"],
+          "defaultContent": []
+        },
+        {
+          "id": "rc5",
+          "name": "Body - two-column article + right rail",
+          "selector": "#skip > div.content.sidebar-parent",
+          "style": "two-column",
+          "blocks": ["social-share", "medical-reviewer", "cards-promo", "cards-video", "cards-teaser", "podcast", "cards-article"],
+          "defaultContent": ["div.col-content div.cell-l"]
+        },
+        {
+          "id": "rc6",
+          "name": "Pre-footer - appointment band + Help #EndCancer",
+          "selector": "#skip > div.pre-footer",
+          "style": "light",
+          "blocks": ["appointment-bar", "cards-icon-cta"],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

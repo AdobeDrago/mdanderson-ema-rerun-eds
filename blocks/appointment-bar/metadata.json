@@ -1,0 +1,37 @@
+{
+  "variantName": "appointment-bar",
+  "baseBlock": "appointment-bar",
+  "version": "1.0.0",
+  "created": "2026-06-17T18:55:09.650Z",
+  "isNewBlock": true,
+  "sourceContext": {
+    "originUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+    "originPage": "breast cancer screening detail page",
+    "blockPosition": "varies"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "wide",
+    "purpose": "appointment-band",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "phone number + appointment CTA on a full-width colored band"
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width contact/appointment bands"
+    ],
+    "notSuitableFor": [
+      "card grids",
+      "navigation"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/prevention-screening/get-screened/breast-cancer-screening"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-17T18:55:09.650Z"
+  }
+}

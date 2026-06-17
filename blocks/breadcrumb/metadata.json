@@ -1,0 +1,37 @@
+{
+  "variantName": "breadcrumb",
+  "baseBlock": "breadcrumb",
+  "version": "1.0.0",
+  "created": "2026-06-17T18:55:09.650Z",
+  "isNewBlock": true,
+  "sourceContext": {
+    "originUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+    "originPage": "breast cancer screening detail page",
+    "blockPosition": "varies"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "breadcrumb",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "linked parent crumbs + current page label"
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "breadcrumb trails on detail pages"
+    ],
+    "notSuitableFor": [
+      "primary navigation",
+      "footer link lists"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/prevention-screening/get-screened/breast-cancer-screening"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-17T18:55:09.650Z"
+  }
+}

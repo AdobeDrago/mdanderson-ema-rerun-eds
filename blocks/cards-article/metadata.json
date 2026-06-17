@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-article",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-17T18:54:41.407Z",
+  "sourceContext": {
+    "originUrl": "https://www.mdanderson.org/prevention-screening/get-screened/breast-cancer-screening.html",
+    "originPage": "breast cancer screening detail page",
+    "blockPosition": "bottom",
+    "region": "below columns"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "wide",
+    "purpose": "article-grid",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + title (linked)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "featured article grids",
+      "blog/news card rows"
+    ],
+    "notSuitableFor": [
+      "icon CTA cards",
+      "text-only cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/prevention-screening/get-screened/breast-cancer-screening"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-17T18:54:41.407Z"
+  }
+}
