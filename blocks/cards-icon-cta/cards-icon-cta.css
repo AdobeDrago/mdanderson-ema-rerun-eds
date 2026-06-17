@@ -1,27 +1,99 @@
+/*
+ * cards-icon-cta — "Help #EndCancer" CTA cards.
+ * Three full-color cards (red / black / blue), centered white text,
+ * white outline buttons. Stacked on mobile, 3-across on desktop.
+ * Values extracted from source promo-with-background cards.
+ */
+
 .cards-icon-cta > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .cards-icon-cta > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  display: block;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+}
+
+/* card background colors (red / black / blue) */
+.cards-icon-cta > ul > li:nth-child(3n + 1) {
+  background-color: rgb(216 44 39); /* brand red */
+}
+
+.cards-icon-cta > ul > li:nth-child(3n + 2) {
+  background-color: rgb(0 0 0);
+}
+
+.cards-icon-cta > ul > li:nth-child(3n) {
+  background-color: rgb(47 96 178);
 }
 
 .cards-icon-cta .cards-icon-cta-card-body {
-  margin: 16px;
+  margin: 0;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cards-icon-cta .cards-icon-cta-card-image {
-  line-height: 0;
+.cards-icon-cta .cards-icon-cta-card-body h3 {
+  margin: 0;
+  color: rgb(255 255 255);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.72px;
 }
 
-.cards-icon-cta > ul > li img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+.cards-icon-cta .cards-icon-cta-card-body p {
+  margin: 0;
+  color: rgb(255 255 255);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* body text sits just under the heading */
+.cards-icon-cta .cards-icon-cta-card-body h3 + p {
+  margin-top: 16px;
+  max-width: 320px;
+}
+
+/* outline CTA button (the standalone link paragraph) */
+.cards-icon-cta .cards-icon-cta-card-body p:last-child {
+  margin-top: 30px;
+}
+
+.cards-icon-cta .cards-icon-cta-card-body p:last-child a {
+  display: inline-block;
+  padding: 11px 30px;
+  border: 1px solid rgb(255 255 255);
+  border-radius: 0;
+  background-color: transparent;
+  color: rgb(255 255 255);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.48px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.cards-icon-cta .cards-icon-cta-card-body p:last-child a:hover,
+.cards-icon-cta .cards-icon-cta-card-body p:last-child a:focus-visible {
+  background-color: rgb(255 255 255);
+  color: rgb(0 0 0);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .cards-icon-cta > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

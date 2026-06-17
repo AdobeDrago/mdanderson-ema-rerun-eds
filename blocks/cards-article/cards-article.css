@@ -1,27 +1,94 @@
+/*
+ * cards-article -- "Featured Articles" card row.
+ * Migrated from source div.fis-articles (a.blog-summary.small.fis cards).
+ * Source card: 1px solid grey border, no radius, image on top (object-fit fill,
+ * ~1.91 ratio), title h3 24px black below in 18px-padded body.
+ * Decorated DOM: .cards-article > ul > li
+ *   > .cards-article-card-image > picture
+ *   > .cards-article-card-body > h3 > a
+ */
+
 .cards-article > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 30px;
 }
 
 .cards-article > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgb(208, 208, 206);
+  border-radius: 0;
+  background-color: transparent;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
 }
 
-.cards-article .cards-article-card-body {
-  margin: 16px;
+.cards-article > ul > li:hover {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
 }
 
+/* Image: full-bleed top, fills width at source ~1.91 aspect ratio */
 .cards-article .cards-article-card-image {
+  margin: 0;
+  padding: 0;
   line-height: 0;
 }
 
-.cards-article > ul > li img {
+.cards-article .cards-article-card-image picture {
+  display: block;
+}
+
+.cards-article .cards-article-card-image img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: 492 / 257;
   object-fit: cover;
+}
+
+/* Body: 18px padding all sides (source) */
+.cards-article .cards-article-card-body {
+  margin: 0;
+  padding: 18px;
+}
+
+/* Title: 24px, weight 400, line-height 31.2px, black, letter-spacing -0.48px */
+.cards-article .cards-article-card-body h3 {
+  margin: 0 0 30px;
+  padding: 0;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 31.2px;
+  letter-spacing: -0.48px;
+}
+
+.cards-article .cards-article-card-body h3 a:any-link {
+  color: rgb(0 0 0);
+  text-decoration: none;
+}
+
+.cards-article .cards-article-card-body h3 a:hover {
+  color: rgb(216 44 39); /* brand red */
+  text-decoration: none;
+}
+
+/* Tablet: 2-up (matches source layout proportions) */
+@media (width >= 600px) {
+  .cards-article > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 43px;
+  }
+}
+
+/* Desktop: 3-up across the full Featured Articles width */
+@media (width >= 900px) {
+  .cards-article > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 30px;
+  }
 }

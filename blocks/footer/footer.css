@@ -1,4 +1,7 @@
-/* MD Anderson global footer — dark */
+/* MD Anderson global footer — dark.
+   The footer block flattens the authored fragment into a single
+   `.footer.block` with default-content-wrapper sections, so styling targets
+   the rendered structure (h4 column headings, ul lists, p, img) directly. */
 
 footer {
   background-color: #1a1a1a;
@@ -9,11 +12,11 @@ footer {
 footer .footer {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 40px 20px;
 }
 
 footer .footer p {
-  margin: 0;
+  margin: 0 0 12px;
 }
 
 footer .footer a {
@@ -32,73 +35,58 @@ footer .footer ul {
   padding: 0;
 }
 
-/* Newsletter subscribe band */
-.footer-subscribe {
-  border-bottom: 1px solid #3a3a3a;
-  padding: 24px 0;
-}
-
-.footer-subscribe p {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* Link columns */
-.footer-columns {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  padding: 40px 0;
-}
-
-.footer-columns h4 {
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0 0 12px;
-  color: #fff;
-}
-
-.footer-columns h4:not(:first-child) {
-  margin-top: 24px;
-}
-
-.footer-columns li {
+footer .footer li {
   padding: 4px 0;
 }
 
-/* Legal links row */
-.footer-legal {
-  border-top: 1px solid #3a3a3a;
-  padding: 20px 0;
+/* Newsletter subscribe lead line */
+footer .footer > div > p:first-child {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
 }
 
-.footer-legal ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  font-size: 13px;
+/* Column headings */
+footer .footer h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+  color: #fff;
+  text-transform: none;
 }
 
-/* Mission + copyright */
-.footer-mission {
-  border-top: 1px solid #3a3a3a;
-  padding: 24px 0 40px;
+/* Link columns: lay out heading+list groups in a responsive grid */
+footer .footer .default-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 32px;
+  align-items: start;
 }
 
-.footer-mission img {
-  height: 56px;
+/* Logo / mission imagery — constrain so the brand mark never blows up */
+footer .footer img {
+  height: auto;
+  max-height: 64px;
   width: auto;
-  margin-bottom: 16px;
 }
 
-.footer-mission p {
-  margin-bottom: 12px;
+/* Mission statement + copyright text */
+footer .footer p {
   color: #ccc;
   line-height: 1.5;
 }
 
+footer .footer h4 + ul {
+  margin-bottom: 8px;
+}
+
 @media (width >= 900px) {
-  .footer-columns {
+  footer .footer .default-content-wrapper {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* The newsletter lead line and the mission block span the full width. */
+  footer .footer .default-content-wrapper > p {
+    grid-column: 1 / -1;
   }
 }

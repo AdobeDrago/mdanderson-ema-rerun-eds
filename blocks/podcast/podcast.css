@@ -1,3 +1,115 @@
+/*
+ * Podcast block — "Featured Podcasts" right-rail component.
+ * Source: mdanderson.org .podcast-container.three-stacked
+ * Decorated DOM:
+ *   .podcast.block
+ *     > div                         (row 0: header wave image)
+ *         > div > picture > img
+ *     > div                         (rows 1..n: one podcast entry each)
+ *         > div > h2                (podcast title)
+ *         > div > p > a             (View podcast episode page)
+ *         > div > p > a             (Read transcript)
+ */
+
 .podcast {
-  margin: 1rem 0;
+  --podcast-red: rgb(218, 41, 28);
+  --podcast-divider: rgb(208, 208, 206);
+
+  display: flex;
+  flex-direction: column;
+  padding: 35px 20px;
+  border-top: 1px solid var(--podcast-divider);
+  border-bottom: 1px solid var(--podcast-divider);
+  background-color: transparent;
+}
+
+/* Header wave image row */
+.podcast > div:first-child {
+  padding-bottom: 25px;
+}
+
+.podcast > div:first-child picture,
+.podcast > div:first-child img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Podcast entry rows (everything after the image) */
+.podcast > div:not(:first-child) {
+  padding: 20px 0 0;
+}
+
+/* Divider between consecutive podcast entries */
+.podcast > div:not(:first-child) + div:not(:first-child) {
+  margin-top: 0;
+  border-top: 1px solid var(--podcast-divider);
+}
+
+/* Podcast title */
+.podcast > div > div:first-child h2 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-family: 'Minion Regular', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23.4px;
+  letter-spacing: -0.36px;
+  color: rgb(0, 0, 0);
+}
+
+/* CTA cells: each holds one bordered red link */
+.podcast > div > div:not(:first-child) {
+  margin: 0 0 10px;
+}
+
+.podcast > div > div:not(:first-child) p {
+  margin: 0;
+}
+
+/* CTA links — outlined red box with leading icon */
+.podcast > div > div:not(:first-child) p a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--podcast-red);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--podcast-red);
+  font-family: 'Univers LT W01_55 Roman', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.2px;
+  letter-spacing: -0.28px;
+  text-decoration: none;
+}
+
+.podcast > div > div:not(:first-child) p a:hover {
+  background-color: var(--podcast-red);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Leading icon rendered via masked SVG so it inherits the red link color */
+.podcast > div > div:not(:first-child) p a:any-link::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  background-color: currentcolor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* Microphone icon — first CTA cell ("View podcast episode page") */
+.podcast > div > div:nth-child(2) p a:any-link::before {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M192 352c53 0 96-43 96-96V96c0-53-43-96-96-96S96 43 96 96v160c0 53 43 96 96 96zm160-160h-32v64c0 70.7-57.3 128-128 128S64 326.7 64 256v-64H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 88.4 71.6 160 160 160h64v32H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h128c17.7 0 32-14.3 32-32s-14.3-32-32-32h-64v-32c88.4 0 160-71.6 160-160v-32h32c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>');
+}
+
+/* Document icon — second CTA cell ("Read transcript") */
+.podcast > div > div:nth-child(3) p a:any-link::before {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z"/></svg>');
 }

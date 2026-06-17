@@ -28,6 +28,9 @@ export default function decorate(block) {
   const main = block.closest('main') || document;
   const headings = main.querySelectorAll('h2[id], h3[id]');
 
+  // Track heading/list-item pairs so we can highlight the active section on scroll.
+  const tracked = [];
+
   headings.forEach((h) => {
     // Skip headings that live inside blocks (rail cards, podcast, etc.) — ToC tracks article sections only.
     if (h.closest('.page-nav')) return;
@@ -51,6 +54,7 @@ export default function decorate(block) {
     });
     li.append(a);
     list.append(li);
+    tracked.push({ heading: h, item: li, link: a });
   });
 
   if (!list.children.length) {
@@ -60,4 +64,38 @@ export default function decorate(block) {
   }
 
   block.append(label, list);
+
+  // Scroll-spy: highlight the section currently in view (matches the source's red active state).
+  const setActive = (item) => {
+    tracked.forEach((t) => {
+      const on = t.item === item;
+      t.item.classList.toggle('is-active', on);
+      if (on) t.link.setAttribute('aria-current', 'true');
+      else t.link.removeAttribute('aria-current');
+    });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const visible = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      });
+      // Pick the topmost heading still in/above the viewport.
+      let current = tracked[0];
+      tracked.forEach((t) => {
+        if (t.heading.getBoundingClientRect().top <= 120) current = t;
+      });
+      if (visible.size) {
+        // Prefer the first visible heading when one is on screen.
+        const firstVisible = tracked.find((t) => visible.has(t.heading));
+        if (firstVisible) current = firstVisible;
+      }
+      setActive(current ? current.item : null);
+    }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+    tracked.forEach((t) => observer.observe(t.heading));
+    setActive(tracked[0].item);
+  }
 }
