@@ -1,20 +1,104 @@
+/* MD Anderson global footer — dark */
+
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  color: #d82c27;
+  text-decoration: underline;
+}
+
+footer .footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Newsletter subscribe band */
+.footer-subscribe {
+  border-bottom: 1px solid #3a3a3a;
+  padding: 24px 0;
+}
+
+.footer-subscribe p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Link columns */
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 40px 0;
+}
+
+.footer-columns h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #fff;
+}
+
+.footer-columns h4:not(:first-child) {
+  margin-top: 24px;
+}
+
+.footer-columns li {
+  padding: 4px 0;
+}
+
+/* Legal links row */
+.footer-legal {
+  border-top: 1px solid #3a3a3a;
+  padding: 20px 0;
+}
+
+.footer-legal ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 13px;
+}
+
+/* Mission + copyright */
+.footer-mission {
+  border-top: 1px solid #3a3a3a;
+  padding: 24px 0 40px;
+}
+
+.footer-mission img {
+  height: 56px;
+  width: auto;
+  margin-bottom: 16px;
+}
+
+.footer-mission p {
+  margin-bottom: 12px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  .footer-columns {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

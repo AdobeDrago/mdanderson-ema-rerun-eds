@@ -75,6 +75,21 @@ export default function transform(hookName, element, payload) {
       const sectionEl = findSectionElement(element, section.selector);
       if (!sectionEl) continue;
 
+      // Inject an auto-built table-of-contents (page-nav) at the start of the
+      // body section so it renders as the narrow left column. The block is
+      // intentionally empty — page-nav.js builds its list from page headings.
+      if (section.id === 'rc5') {
+        const tocBlock = WebImporter.Blocks.createBlock(doc, {
+          name: 'page-nav',
+          cells: [['On this page']],
+        });
+        if (sectionEl.firstChild) {
+          sectionEl.insertBefore(tocBlock, sectionEl.firstChild);
+        } else {
+          sectionEl.appendChild(tocBlock);
+        }
+      }
+
       // Section Metadata block (after the section) when the section has a style.
       if (section.style) {
         const metaBlock = WebImporter.Blocks.createBlock(doc, {

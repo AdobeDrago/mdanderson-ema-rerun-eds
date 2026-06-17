@@ -323,3 +323,53 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/*
+ * Two-column body layout (screening-detail-page):
+ *   narrow left ToC (page-nav) | wide right content column.
+ * The right column itself splits its long-form article (default content) from
+ * the right rail (schedule-cta, cards, podcast) into an inner two-column grid.
+ */
+@media (width >= 900px) {
+  main > .section.two-column > div {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+    max-width: 1280px;
+  }
+
+  /* Left column: the ToC sticks; everything else spans the right column. */
+  main > .section.two-column > div > .page-nav-wrapper {
+    grid-column: 1;
+    grid-row: 1 / span 999;
+  }
+
+  main > .section.two-column > div > :not(.page-nav-wrapper) {
+    grid-column: 2;
+  }
+
+  /*
+   * Inner two-column: the article prose (default-content-wrapper) sits left,
+   * the rail blocks (schedule CTA, videos, teasers, podcast) float right.
+   * Implemented with a float so prose wraps naturally beside the rail, while
+   * full-width items (featured articles) clear below.
+   */
+  main > .section.two-column .cards-promo-wrapper,
+  main > .section.two-column .cards-video-wrapper,
+  main > .section.two-column .cards-teaser-wrapper,
+  main > .section.two-column .podcast-wrapper,
+  main > .section.two-column .schedule-cta-wrapper {
+    float: right;
+    clear: right;
+    width: 320px;
+    margin: 0 0 24px 32px;
+  }
+
+  /* Featured articles span the full width of the right column, below the rail. */
+  main > .section.two-column .cards-article-wrapper,
+  main > .section.two-column .featured-articles-wrapper {
+    grid-column: 2;
+    clear: both;
+  }
+}

@@ -502,6 +502,17 @@ var CustomImportScript = (() => {
         const section = sections[i];
         const sectionEl = findSectionElement(element, section.selector);
         if (!sectionEl) continue;
+        if (section.id === "rc5") {
+          const tocBlock = WebImporter.Blocks.createBlock(doc, {
+            name: "page-nav",
+            cells: [["On this page"]]
+          });
+          if (sectionEl.firstChild) {
+            sectionEl.insertBefore(tocBlock, sectionEl.firstChild);
+          } else {
+            sectionEl.appendChild(tocBlock);
+          }
+        }
         if (section.style) {
           const metaBlock = WebImporter.Blocks.createBlock(doc, {
             name: "Section Metadata",
