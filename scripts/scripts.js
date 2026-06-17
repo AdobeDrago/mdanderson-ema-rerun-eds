@@ -42,6 +42,59 @@ function decorateSectionMetadata(main) {
 }
 
 /**
+ * Restructures the flat block-wrappers of the two-column body section into the
+ * intended layout: a narrow ToC sidebar on the left, and a right column whose
+ * article prose and right rail form a nested two-column, with full-width items
+ * (Featured Articles) below. EDS flattens all blocks into sibling wrappers, so
+ * we group them here into stable containers the CSS can lay out.
+ * @param {Element} main The main element
+ */
+function decorateTwoColumnBody(main) {
+  const section = main.querySelector('.section.two-column');
+  if (!section || section.dataset.twoColDecorated) return;
+  section.dataset.twoColDecorated = 'true';
+
+  const wrappers = [...section.children].filter((c) => c.classList.contains('page-nav-wrapper')
+    || c.matches('[class$="-wrapper"]') || c.classList.contains('default-content-wrapper'));
+  if (!wrappers.length) return;
+
+  const toc = section.querySelector('.page-nav-wrapper');
+  // Rail blocks that sit to the right of the article prose.
+  const railSelectors = ['cards-promo-wrapper', 'cards-video-wrapper', 'cards-teaser-wrapper', 'podcast-wrapper'];
+  // Full-width blocks that drop below the article + rail.
+  const fullWidthSelectors = ['cards-article-wrapper'];
+
+  const doc = main.ownerDocument;
+  const content = doc.createElement('div');
+  content.className = 'two-column-content';
+  const article = doc.createElement('div');
+  article.className = 'two-column-article';
+  const rail = doc.createElement('div');
+  rail.className = 'two-column-rail';
+  const full = doc.createElement('div');
+  full.className = 'two-column-full';
+
+  wrappers.forEach((w) => {
+    if (w === toc) return;
+    const cls = [...w.classList].find((c) => c.endsWith('-wrapper')) || '';
+    if (railSelectors.includes(cls)) rail.append(w);
+    else if (fullWidthSelectors.includes(cls)) full.append(w);
+    else article.append(w);
+  });
+
+  const inner = doc.createElement('div');
+  inner.className = 'two-column-inner';
+  if (article.children.length) inner.append(article);
+  if (rail.children.length) inner.append(rail);
+  if (inner.children.length) content.append(inner);
+  if (full.children.length) content.append(full);
+
+  // Rebuild: [ToC][content] inside the section's first wrapper region.
+  if (toc) section.prepend(toc);
+  section.append(content);
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -158,6 +211,7 @@ export function decorateMain(main) {
   decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateTwoColumnBody(main);
 }
 
 /**
