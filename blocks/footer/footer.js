@@ -10,7 +10,12 @@ export default async function decorate(block) {
   // which merges the multi-cell columns row into a single wrapper — fetching
   // raw keeps the four authored columns intact.
   let fragment;
-  const candidates = ['/content/footer.plain.html', '/footer.plain.html'];
+  // Local dev serves the doc under /content/...; the published site serves it
+  // at the root. Try the right path first per environment to avoid a 404.
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const candidates = isLocal
+    ? ['/content/footer.plain.html', '/footer.plain.html']
+    : ['/footer.plain.html', '/content/footer.plain.html'];
   for (let i = 0; i < candidates.length && !fragment; i += 1) {
     try {
       // eslint-disable-next-line no-await-in-loop

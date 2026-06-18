@@ -125,7 +125,12 @@ export default async function decorate(block) {
   // the three header sections (utility bar / brand row / megamenu). Block rows
   // are explicit <div> children and cannot collapse the way plain documents do.
   let fragment;
-  const navCandidates = ['/content/nav.plain.html', '/nav.plain.html'];
+  // Local dev serves the doc under /content/...; the published site serves it
+  // at the root. Try the right path first per environment to avoid a 404.
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const navCandidates = isLocal
+    ? ['/content/nav.plain.html', '/nav.plain.html']
+    : ['/nav.plain.html', '/content/nav.plain.html'];
   for (let i = 0; i < navCandidates.length && !fragment; i += 1) {
     try {
       // eslint-disable-next-line no-await-in-loop
