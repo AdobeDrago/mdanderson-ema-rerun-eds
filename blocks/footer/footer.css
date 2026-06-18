@@ -1,7 +1,7 @@
 /* MD Anderson global footer — dark.
-   The footer block flattens the authored fragment into a single
-   `.footer.block` with default-content-wrapper sections, so styling targets
-   the rendered structure (h4 column headings, ul lists, p, img) directly. */
+   Content is authored as a `footer` block table; footer.js tags each row by
+   position (footer-subscribe / footer-columns / footer-legal / footer-mission)
+   and each column cell as .footer-column. */
 
 footer {
   background-color: #1a1a1a;
@@ -17,6 +17,8 @@ footer .footer {
 
 footer .footer p {
   margin: 0 0 12px;
+  color: #ccc;
+  line-height: 1.5;
 }
 
 footer .footer a {
@@ -39,14 +41,6 @@ footer .footer li {
   padding: 4px 0;
 }
 
-/* Newsletter subscribe lead line */
-footer .footer > div > p:first-child {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 24px;
-}
-
-/* Column headings */
 footer .footer h4 {
   font-size: 16px;
   font-weight: 700;
@@ -55,38 +49,51 @@ footer .footer h4 {
   text-transform: none;
 }
 
-/* Link columns: lay out heading+list groups in a responsive grid */
-footer .footer .default-content-wrapper {
+footer .footer h4:first-child {
+  margin-top: 0;
+}
+
+/* Newsletter subscribe lead line */
+.footer-subscribe p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+/* Link columns */
+.footer-columns {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0 32px;
   align-items: start;
+  padding: 24px 0;
 }
 
-/* Logo / mission imagery — constrain so the brand mark never blows up */
-footer .footer img {
+/* Legal links row */
+.footer-legal ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 13px;
+  border-top: 1px solid #3a3a3a;
+  padding-top: 20px;
+}
+
+/* Mission + copyright + logo */
+.footer-mission {
+  border-top: 1px solid #3a3a3a;
+  padding-top: 24px;
+}
+
+footer .footer .footer-mission img {
   height: auto;
   max-height: 64px;
   width: auto;
 }
 
-/* Mission statement + copyright text */
-footer .footer p {
-  color: #ccc;
-  line-height: 1.5;
-}
-
-footer .footer h4 + ul {
-  margin-bottom: 8px;
-}
-
 @media (width >= 900px) {
-  footer .footer .default-content-wrapper {
+  .footer-columns {
     grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* The newsletter lead line and the mission block span the full width. */
-  footer .footer .default-content-wrapper > p {
-    grid-column: 1 / -1;
   }
 }

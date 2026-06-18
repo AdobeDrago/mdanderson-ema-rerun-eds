@@ -120,10 +120,10 @@ function decorateMegamenu(section) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // Load nav fragment. Local dev server serves it under /content/nav.plain.html;
-  // the published DA/EDS site serves it at /nav.plain.html. Try both raw paths
-  // and parse consistently (authored file wraps content in <main>; the
-  // DA-served .plain.html is bare section divs).
+  // The nav content is authored as a `nav` BLOCK TABLE (not a plain list), so
+  // it always publishes as a stable structure: a `.nav` block whose rows are
+  // the three header sections (utility bar / brand row / megamenu). Block rows
+  // are explicit <div> children and cannot collapse the way plain documents do.
   let fragment;
   const navCandidates = ['/content/nav.plain.html', '/nav.plain.html'];
   for (let i = 0; i < navCandidates.length && !fragment; i += 1) {
@@ -148,10 +148,22 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   nav.setAttribute('aria-label', 'Main navigation');
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  // Three sections: [0]=utility CTA bar, [1]=brand+secondary+search, [2]=primary megamenu
-  const sections = nav.querySelectorAll(':scope > div');
+  // Locate the `nav` block and read its rows. Each row's inner cell is one
+  // header section. Fall back to the fragment's own top-level divs if a bare
+  // (non-block) fragment is encountered.
+  const navBlock = fragment.querySelector('.nav') || fragment;
+  const rows = [...navBlock.children].filter((el) => el.tagName === 'DIV');
+  const sections = rows.map((row) => {
+    // Unwrap the single inner cell <div> so decorators see the ul/p directly.
+    const cell = row.querySelector(':scope > div') || row;
+    const section = document.createElement('div');
+    while (cell.firstChild) section.append(cell.firstChild);
+    nav.append(section);
+    return section;
+  });
+
+  // [0]=utility CTA bar, [1]=brand+secondary+search, [2]=primary megamenu
   if (sections[0]) decorateUtilityBar(sections[0]);
   if (sections[1]) decorateBrandRow(sections[1]);
   if (sections[2]) decorateMegamenu(sections[2]);

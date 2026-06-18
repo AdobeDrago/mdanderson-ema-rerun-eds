@@ -1,4 +1,3 @@
-import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 /**
@@ -6,15 +5,58 @@ import { loadFragment } from '../fragment/fragment.js';
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  // load footer as fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
+  // Fetch the footer fragment raw (like the header) so the `footer` block
+  // table's cell structure is preserved. loadFragment runs decorateSections,
+  // which merges the multi-cell columns row into a single wrapper — fetching
+  // raw keeps the four authored columns intact.
+  let fragment;
+  const candidates = ['/content/footer.plain.html', '/footer.plain.html'];
+  for (let i = 0; i < candidates.length && !fragment; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const resp = await fetch(candidates[i]);
+      if (resp.ok) {
+        // eslint-disable-next-line no-await-in-loop
+        const html = await resp.text();
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        fragment = tmp.querySelector('main') || tmp;
+      }
+    } catch (e) { /* try next */ }
+  }
+  if (!fragment) {
+    fragment = await loadFragment('/footer');
+  }
+  if (!fragment) return;
 
-  // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+  footer.className = 'footer';
+
+  // The `footer` block has rows = regions; each row's first cell holds content.
+  const footerBlock = fragment.querySelector('.footer') || fragment;
+  const rows = [...footerBlock.children].filter((el) => el.tagName === 'DIV');
+  const rowClasses = ['footer-subscribe', 'footer-columns', 'footer-legal', 'footer-mission'];
+
+  rows.forEach((row, i) => {
+    const region = document.createElement('div');
+    if (rowClasses[i]) region.classList.add(rowClasses[i]);
+
+    if (rowClasses[i] === 'footer-columns') {
+      // Each cell <div> in this row is one footer column.
+      [...row.children].filter((c) => c.tagName === 'DIV').forEach((cell) => {
+        const col = document.createElement('div');
+        col.className = 'footer-column';
+        while (cell.firstChild) col.append(cell.firstChild);
+        region.append(col);
+      });
+    } else {
+      // Single-cell rows: unwrap the cell so its content sits directly in region.
+      const cell = row.querySelector(':scope > div') || row;
+      while (cell.firstChild) region.append(cell.firstChild);
+    }
+    footer.append(region);
+  });
 
   block.append(footer);
 }
