@@ -120,20 +120,29 @@ function decorateMegamenu(section) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // Load nav fragment: localhost serves /content/nav.plain.html; DA/EDS uses {navPath}.plain.html
+  // Load nav fragment. Local dev server serves it under /content/nav.plain.html;
+  // the published DA/EDS site serves it at /nav.plain.html. Try both raw paths
+  // and parse consistently (authored file wraps content in <main>; the
+  // DA-served .plain.html is bare section divs).
   let fragment;
-  try {
-    const resp = await fetch('/content/nav.plain.html');
-    if (resp.ok) {
-      const html = await resp.text();
-      const tmp = document.createElement('div');
-      tmp.innerHTML = html;
-      fragment = tmp.querySelector('main') || tmp;
-    }
-  } catch (e) { /* fall through to loadFragment */ }
+  const navCandidates = ['/content/nav.plain.html', '/nav.plain.html'];
+  for (let i = 0; i < navCandidates.length && !fragment; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const resp = await fetch(navCandidates[i]);
+      if (resp.ok) {
+        // eslint-disable-next-line no-await-in-loop
+        const html = await resp.text();
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        fragment = tmp.querySelector('main') || tmp;
+      }
+    } catch (e) { /* try next candidate */ }
+  }
   if (!fragment) {
     fragment = await loadFragment('/nav');
   }
+  if (!fragment) return;
 
   block.textContent = '';
   const nav = document.createElement('nav');
