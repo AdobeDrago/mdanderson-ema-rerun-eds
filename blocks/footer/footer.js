@@ -31,7 +31,11 @@ export default async function decorate(block) {
 
   block.textContent = '';
   const footer = document.createElement('div');
-  footer.className = 'footer';
+  // NOTE: do not use class "footer" here — styles.css hides `footer .footer`
+  // until it has data-block-status="loaded" (a FOUC guard for the block itself).
+  // This inner container never gets that attribute, so a "footer" class would
+  // leave it permanently visibility:hidden. Use a distinct class.
+  footer.className = 'footer-content';
 
   // The `footer` block has rows = regions; each row's first cell holds content.
   const footerBlock = fragment.querySelector('.footer') || fragment;

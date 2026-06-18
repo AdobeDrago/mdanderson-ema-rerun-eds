@@ -1,6 +1,7 @@
 /* MD Anderson global footer — dark.
-   Content is authored as a `footer` block table; footer.js tags each row by
-   position (footer-subscribe / footer-columns / footer-legal / footer-mission)
+   footer.js builds a `.footer-content` container (NOT `.footer`, which the
+   global FOUC rule hides until data-block-status="loaded") with rows tagged by
+   position: footer-subscribe / footer-columns / footer-legal / footer-mission,
    and each column cell as .footer-column. */
 
 footer {
@@ -9,39 +10,39 @@ footer {
   font-size: 14px;
 }
 
-footer .footer {
+footer .footer-content {
   max-width: 1280px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
-footer .footer p {
+footer .footer-content p {
   margin: 0 0 12px;
   color: #ccc;
   line-height: 1.5;
 }
 
-footer .footer a {
+footer .footer-content a {
   color: #fff;
   text-decoration: none;
 }
 
-footer .footer a:hover {
+footer .footer-content a:hover {
   color: #d82c27;
   text-decoration: underline;
 }
 
-footer .footer ul {
+footer .footer-content ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-footer .footer li {
+footer .footer-content li {
   padding: 4px 0;
 }
 
-footer .footer h4 {
+footer .footer-content h4 {
   font-size: 16px;
   font-weight: 700;
   margin: 24px 0 12px;
@@ -49,7 +50,7 @@ footer .footer h4 {
   text-transform: none;
 }
 
-footer .footer h4:first-child {
+footer .footer-content h4:first-child {
   margin-top: 0;
 }
 
@@ -86,7 +87,7 @@ footer .footer h4:first-child {
   padding-top: 24px;
 }
 
-footer .footer .footer-mission img {
+footer .footer-mission img {
   height: auto;
   max-height: 64px;
   width: auto;
